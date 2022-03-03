@@ -1,27 +1,17 @@
 require("dotenv").config();
 const express = require("express");
 const rateLimit = require("express-rate-limit");
-
-const whiteList = ['http://127.0.0.1'];
-const corsOptions = {
-  origin: (origin, callback) => {
-    if(!origin || whiteList.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  optionsSuccessStatus: 200
-}
-
 const cors = require("cors");
 const app = express();
-const port = 3000;
-const books = require("./Books");
+const PORT = process.env.PORT || 3000;
+
+const ISBN = require("./ISBN");
+const Author = require("./Author");
+const Title = require("./Title");
+const AuthorAndTitle = require("./AuthorAndTitle");
 
 app.use(express.json());
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 const limiter = rateLimit({
   windowMs: 1000,
@@ -34,9 +24,11 @@ app.get("/", (req, res) => {
   res.json({ success: "Hello world!" });
 });
 
-app.use("/books", books);
+app.use("/isbn", ISBN);
+app.use("/author", Author);
+app.use("/title", Title);
+app.use("/authorandtitle", AuthorAndTitle);
 
-app.listen(port, () => {
-  console.log("app listening on " + port);
-})
-
+app.listen(PORT, () => {
+  console.log(`app listening on port: ${PORT}`);
+});
