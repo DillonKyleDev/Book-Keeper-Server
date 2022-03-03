@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
       console.log(response.data.items[0]);
       res.json(response.data.items[0]);
     })
-    .catch(err => res.json({"Error": err}))
+    .catch(err => res.json({"Error": err.response}))
   } else {
     res.json({"Error": "Author required for this route"})
   }
