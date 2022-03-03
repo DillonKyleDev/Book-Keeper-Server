@@ -9,8 +9,8 @@ router.post("/", async (req, res) => {
     .then(response => {
       if(response.data.items) {
         if(response.data.items.length > 0) {
-          console.log(response.data.items[0]);
-          res.json(response.data.items[0]);
+          console.log(response.data.items);
+          res.json(response.data.items);
         }
       } else {
         res.json({"Response": "No items were found."})
