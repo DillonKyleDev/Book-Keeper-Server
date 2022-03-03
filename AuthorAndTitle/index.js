@@ -10,7 +10,13 @@ router.post("/", async (req, res) => {
       console.log(response.data.items[0]);
       res.json(response.data.items[0]);
     })
-    .catch(err => res.json({"Error": err}))
+    .catch(err => {
+      if(err.request) {
+        res.json({"Error": err.request});
+      } else {
+        res.json({"Error": err.message})
+      }
+    })
   } else {
     res.json({"Error": "Both Author and Title required for this route"})
   }
