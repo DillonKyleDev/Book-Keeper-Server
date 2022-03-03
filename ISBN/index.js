@@ -7,8 +7,14 @@ router.post("/", async (req, res) => {
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=
     isbn:${req.body.isbn}&key=${process.env.BOOKS_API_KEY}`)
     .then(response => {
-      console.log(response.data.items[0]);
-      res.json(response.data.items[0]);
+      if(response.data.items) {
+        if(response.data.items.length > 0) {
+          console.log(response.data.items[0]);
+          res.json(response.data.items[0]);
+        }
+      } else {
+        res.json({"Response": "No items were found."})
+      }
     })
     .catch(err => {
       if(err.request) {
