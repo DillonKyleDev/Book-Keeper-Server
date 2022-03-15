@@ -5,7 +5,7 @@ const axios = require("axios");
 router.post("/", async (req, res) => {
   if(req.body.author !== '' && req.body.title !== '') {
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${req.body.title}+
-    inauthor:${req.body.author}&key=${process.env.BOOKS_API_KEY}`)
+    inauthor:${req.body.author}&maxResults=40&key=${process.env.BOOKS_API_KEY}`)
     .then(response => {
       if(response.data && response.data.items) {
         res.json(response.data.items);
