@@ -7,23 +7,15 @@ router.post("/", async (req, res) => {
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=
     intitle:${req.body.title}&key=${process.env.BOOKS_API_KEY}`)
     .then(response => {
-      if(response.data.items) {
-        if(response.data.items.length > 0) {
-          res.json(response.data.items);
-        }
-      } else {
-        res.json({"Response": "No items were found."})
+      if(response.data && response.data.items) {
+        res.json(response.data.items);
       }
     })
     .catch(err => {
-      if(err.request) {
-        res.json({"Error": err.request});
-      } else {
-        res.json({"Error": err.message})
-      }
+      res.json({"Error": "No items were found."})
     })
   } else {
-    res.json({"Error": "Title required for this route"})
+    res.json({"Error": "Author required for this route"})
   }
 })
 
