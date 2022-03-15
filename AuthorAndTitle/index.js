@@ -9,7 +9,6 @@ router.post("/", async (req, res) => {
     .then(response => {
       if(response.data.items) {
         if(response.data.items.length > 0) {
-          console.log(response.data.items);
           res.json(response.data.items);
         }
       } else {
