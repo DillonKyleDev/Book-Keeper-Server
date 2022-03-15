@@ -8,9 +8,7 @@ router.post("/", async (req, res) => {
     inauthor:${req.body.author}&maxResults=50&key=${process.env.BOOKS_API_KEY}`)
     .then(response => {
       if(response.data && response.data.items) {
-        if(response.data.items.length > 0) {
-          res.json(response.data.items);
-        }
+        res.json(response.data.items);
       }
     })
     .catch(err => {
