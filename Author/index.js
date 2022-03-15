@@ -17,11 +17,7 @@ router.post("/", async (req, res) => {
       }
     })
     .catch(err => {
-      if(err.request) {
-        res.json({"Error": err.request});
-      } else {
-        res.json({"Error": err.message})
-      }
+      res.json({"Error": err});
     })
   } else {
     res.json({"Error": "Author required for this route"})
